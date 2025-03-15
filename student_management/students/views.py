@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
 from .models import Student
 from .forms import StudentForm
 
@@ -13,6 +14,7 @@ def student_create(request):
         form = StudentForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, "Student added successfully!")  # ✅ Success message
             return redirect('student_list')
     else:
         form = StudentForm()
@@ -25,6 +27,7 @@ def student_update(request, id):
         form = StudentForm(request.POST, instance=student)
         if form.is_valid():
             form.save()
+            messages.success(request, "Record updated successfully!")  # ✅ Success message
             return redirect('student_list')
     else:
         form = StudentForm(instance=student)
@@ -35,5 +38,6 @@ def student_delete(request, id):
     student = get_object_or_404(Student, id=id)
     if request.method == 'POST':
         student.delete()
+        messages.success(request, "Student record deleted!")  # ✅ Success message
         return redirect('student_list')
     return render(request, 'students/student_confirm_delete.html', {'student': student})
