@@ -2,11 +2,32 @@
 {% block title %}Add/Edit Student{% endblock %}
 
 {% block content %}
-    <h2>{% if form.instance.id %}Edit{% else %}Add{% endif %} Student</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Save</button>
-    </form>
-    <a href="{% url 'student_list' %}">Back to List</a>
+    <div class="card shadow-sm">
+        <div class="card-header bg-success text-white">
+            <h2 class="mb-0">{% if form.instance.id %}Edit{% else %}Add{% endif %} Student</h2>
+        </div>
+        <div class="card-body">
+            <form method="post" class="needs-validation" novalidate>
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label class="form-label">Name</label>
+                    {{ form.name }}
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    {{ form.email }}
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Phone</label>
+                    {{ form.phone }}
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Course</label>
+                    {{ form.course }}
+                </div>
+                <button type="submit" class="btn btn-success">Save</button>
+                <a href="{% url 'student_list' %}" class="btn btn-secondary">Back</a>
+            </form>
+        </div>
+    </div>
 {% endblock %}
